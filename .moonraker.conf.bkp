@@ -1,0 +1,75 @@
+[server]
+host = 0.0.0.0
+port = 7125
+
+[file_manager]
+enable_object_processing = True
+
+[authorization]
+cors_domains = 
+	https://my.mainsail.xyz
+	http://my.mainsail.xyz
+	http://*.local
+	http://*.lan
+trusted_clients = 
+	10.0.0.0/8
+	127.0.0.0/8
+	169.254.0.0/16
+	172.16.0.0/12
+	192.168.0.0/16
+	FE80::/10
+	::1/128
+
+[octoprint_compat]
+
+[history]
+
+[update_manager]
+
+[update_manager mainsail]
+type = web
+repo = meteyou/mainsail
+path = ~/mainsail
+
+[update_manager client z_calibration]
+type = git_repo
+path = /home/pi/klipper_z_calibration
+origin = https://github.com/protoloft/klipper_z_calibration.git
+install_script = install.sh
+
+[update_manager led_effect]
+type = git_repo
+path = ~/klipper-led_effect
+origin = https://github.com/julianschill/klipper-led_effect.git
+is_system_service = False
+
+[power voron_master]
+type = tasmota
+off_when_shutdown = False
+address = 192.168.2.126
+bound_service = klipper
+restart_klipper_when_powered = True
+
+[power voron_reset]
+type = tasmota
+off_when_shutdown = True
+address = 192.168.2.127
+bound_service = klipper
+restart_klipper_when_powered = True
+
+[mqtt]
+address = 192.168.2.96
+port = 1883
+mqtt_protocol = v3.1.1
+enable_moonraker_api = True
+instance_name = voron
+status_objects = 
+	webhooks
+	heater_bed
+	extruder
+	print_stats
+	toolhead
+	display_status
+	virtual_sdcard
+default_qos = 0
+
